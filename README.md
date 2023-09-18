@@ -29,7 +29,7 @@ This is a test automation framework using Selenium, TestNG, and Java. It's desig
     mvn clean install
 
 ## Running Tests
-Execute the tests using the following command:
+Execute all tests using the following command:
     ```bash
         mvn test -DsuiteXmlFile=testng.xml
     ```
@@ -39,5 +39,6 @@ Execute the tests using the following command:
 - Browser drivers are managed by WebDriverManagerLibrary. Ensure the drivers match the browser versions you intend to use.
 
 ## Reporting
-- Post test execution, check reports in target/surefire-reports.
-- Logs can be found in the root directory (test.log)
+- Post test execution, check reports in target/surefire-reports/index.html.
+![Screenshot](report_from_execution_on_09/17/2023.png)
+- Logs can be found in the root project directory (test.log)
