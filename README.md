@@ -40,5 +40,5 @@ Execute all tests using the following command:
 
 ## Reporting
 - Post test execution, check reports in target/surefire-reports/index.html.
-![Screenshot](report_from_execution_on_09/17/2023.png)
+![Screenshot](report_from_execution_on_09_17_2023.png)
 - Logs can be found in the root project directory (test.log)
