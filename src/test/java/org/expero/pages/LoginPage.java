@@ -42,7 +42,13 @@ public class LoginPage {
         passwordField.clear();
         passwordField.sendKeys(password);
     }
+    public String getEmailValidationMessage(){
+        return emailField.getAttribute("validationMessage");
+    }
 
+    public String getPasswordValidationMessage(){
+        return passwordField.getAttribute("validationMessage");
+    }
     public String getHeader() {
         return header.getText();
     }

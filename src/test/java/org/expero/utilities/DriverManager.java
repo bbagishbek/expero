@@ -1,7 +1,6 @@
 package org.expero.utilities;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import jdk.internal.net.http.common.Log;
 import org.apache.logging.log4j.Logger;
 import org.expero.enums.SeleniumEnvironment;
 import org.openqa.selenium.WebDriver;

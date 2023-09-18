@@ -41,6 +41,8 @@ public class Dashboard {
     @FindBy(xpath = "//button[text()='Save']")
     private WebElement saveTaskButton;
 
+    @FindBy(css = "img[data-testid='profileImage']:first-child")
+    private WebElement profilePicture;
 
     public void clickOnSaveTask() {
         saveTaskButton.click();
@@ -79,6 +81,10 @@ public class Dashboard {
         taskInputField.sendKeys(task);
     }
 
+    public String getTaskInputValidationMsg(){
+        return taskInputField.getAttribute("validationMessage");
+    }
+
     public String getUserName() {
         return username.getText();
     }
@@ -98,6 +104,10 @@ public class Dashboard {
         return listOfTasks;
     }
 
+    public List<WebElement> getTasks() {
+        return driver.findElements(By.xpath("//td//span"));
+    }
+
     public WebElement getTask(String task) {
         try {
             return driver.findElement(By.xpath("//td//span[text()='" + task + "']"));
@@ -107,5 +117,12 @@ public class Dashboard {
         }
     }
 
-
+    public boolean isProfilePictureDisplayed() {
+        try {
+            return profilePicture.isDisplayed();
+        } catch (Exception e) {
+            logger.debug("PROFILE PICTURE WAS NOT FOUND");
+        }
+        return false;
+    }
 }

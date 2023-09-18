@@ -2,6 +2,7 @@ package org.expero.tests;
 
 import com.github.javafaker.Faker;
 import org.expero.pages.Dashboard;
+import org.expero.pages.DetailsPage;
 import org.expero.pages.LoginPage;
 import org.expero.utilities.ConfigReader;
 import org.openqa.selenium.By;
@@ -10,6 +11,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -27,6 +30,15 @@ public class DashboardTest extends BaseTest {
 
         LoginPage loginPage = new LoginPage(driver);
         loginPage.login(valid_user, valid_password);
+    }
+
+    @Test
+    public void verifyDefaultTaskList() {
+        Dashboard dashboardPage = new Dashboard(driver);
+        List<String> actualList = dashboardPage.getListOfTasks();
+        List<String> expectedList = Arrays.asList("Go to the store", "Wash the dishes", "Read a book");
+        //The dashboard page should show a list with the default tasks.
+        assertEquals(expectedList, actualList);
     }
 
     @Test
@@ -113,5 +125,35 @@ public class DashboardTest extends BaseTest {
         List<String> afterTasks = dashboardPage.getListOfTasks();
 
         assertEquals(beforeTasks, afterTasks);
+    }
+
+    @Test
+    public void checkTaskDetails() {
+        Dashboard dashboardPage = new Dashboard(driver);
+
+        List<WebElement> allTasks = dashboardPage.getTasks();
+
+        WebElement task = allTasks.get(0);
+        String taskName = task.getText();
+
+        task.click();
+
+        DetailsPage detailsPage = new DetailsPage(driver);
+        int actual_id = Integer.parseInt(detailsPage.getTaskId().split(" ")[1]);
+        assertEquals(detailsPage.getTaskName(), taskName);
+        System.out.println(detailsPage.getTaskId());
+        assertEquals(actual_id, 1);
+    }
+
+    @Test
+    public void errorWhenSubmittingEmptyTask(){
+        Dashboard dashboardPage = new Dashboard(driver);
+        dashboardPage.clickOnNewTask();
+
+        dashboardPage.clickOnCreateTask();
+
+        String actual_message = dashboardPage.getTaskInputValidationMsg();
+
+        assertEquals(actual_message, "Please fill out this field.");
     }
 }
