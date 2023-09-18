@@ -34,19 +34,10 @@ public class Dashboard {
     private WebElement dashboardButton;
     @FindBy(id = "task")
     private WebElement taskInputField;
-    @FindBy(xpath = "//button[text()='Create']")
-    private WebElement createTaskButton;
     @FindBy(xpath = "//table[@class='min-w-full']")
     private WebElement table;
-    @FindBy(xpath = "//button[text()='Save']")
-    private WebElement saveTaskButton;
-
     @FindBy(css = "img[data-testid='profileImage']:first-child")
     private WebElement profilePicture;
-
-    public void clickOnSaveTask() {
-        saveTaskButton.click();
-    }
 
     public void clickOnNewTask() {
         newTaskButton.click();
@@ -54,10 +45,6 @@ public class Dashboard {
 
     public void clickOnLogout() {
         logoutButton.click();
-    }
-
-    public void clickOnCreateTask() {
-        createTaskButton.click();
     }
 
     public void clickOnDashboardButton() {

@@ -1,9 +1,7 @@
 package org.expero.tests;
 
 import com.github.javafaker.Faker;
-import org.expero.pages.Dashboard;
-import org.expero.pages.DetailsPage;
-import org.expero.pages.LoginPage;
+import org.expero.pages.*;
 import org.expero.utilities.ConfigReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -11,7 +9,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -50,8 +47,9 @@ public class DashboardTest extends BaseTest {
         Dashboard dashboardPage = new Dashboard(driver);
         dashboardPage.clickOnNewTask();
 
-        dashboardPage.enterTaskName(taskName);
-        dashboardPage.clickOnCreateTask();
+        NewTaskPage newTaskPage = new NewTaskPage(driver);
+        newTaskPage.enterTaskName(taskName);
+        newTaskPage.clickOnCreate();
 
         // VERIFY TASK IS DISPLAYED
         assertTrue(dashboardPage.getTask(taskName).isDisplayed());
@@ -71,8 +69,10 @@ public class DashboardTest extends BaseTest {
         String randomTask = allTasks.get(new Random().nextInt(allTasks.size()));
 
         dashboardPage.clickOnEditTask(randomTask);
-        dashboardPage.enterTaskName(taskName);
-        dashboardPage.clickOnSaveTask();
+
+        EditTaskPage editTaskPage = new EditTaskPage(driver);
+        editTaskPage.enterTaskName(taskName);
+        editTaskPage.saveTask();
 
         assertTrue(dashboardPage.getTask(taskName).isDisplayed());
     }
@@ -140,8 +140,9 @@ public class DashboardTest extends BaseTest {
 
         DetailsPage detailsPage = new DetailsPage(driver);
         int actual_id = Integer.parseInt(detailsPage.getTaskId().split(" ")[1]);
+
         assertEquals(detailsPage.getTaskName(), taskName);
-        System.out.println(detailsPage.getTaskId());
+
         assertEquals(actual_id, 1);
     }
 
@@ -150,7 +151,8 @@ public class DashboardTest extends BaseTest {
         Dashboard dashboardPage = new Dashboard(driver);
         dashboardPage.clickOnNewTask();
 
-        dashboardPage.clickOnCreateTask();
+        NewTaskPage newTaskPage = new NewTaskPage(driver);
+        newTaskPage.clickOnCreate();
 
         String actual_message = dashboardPage.getTaskInputValidationMsg();
 
