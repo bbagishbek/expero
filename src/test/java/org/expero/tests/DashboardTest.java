@@ -51,6 +51,9 @@ public class DashboardTest extends BaseTest {
         newTaskPage.enterTaskName(taskName);
         newTaskPage.clickOnCreate();
 
+        // VERIFY NOTIFICATION IS DISPLAYED
+        assertTrue(dashboardPage.getNotification().contains("Task created"));
+
         // VERIFY TASK IS DISPLAYED
         assertTrue(dashboardPage.getTask(taskName).isDisplayed());
 
@@ -74,6 +77,9 @@ public class DashboardTest extends BaseTest {
         editTaskPage.enterTaskName(taskName);
         editTaskPage.saveTask();
 
+        // VERIFY NOTIFICATION IS DISPLAYED
+        assertTrue(dashboardPage.getNotification().contains("Task updated"));
+
         assertTrue(dashboardPage.getTask(taskName).isDisplayed());
     }
 
@@ -81,8 +87,12 @@ public class DashboardTest extends BaseTest {
     public void deleteAllTasks() {
         List<WebElement> deleteButtons = driver.findElements(By.xpath("//button[text()='Delete']"));
 
+        Dashboard dashboardPage = new Dashboard(driver);
+
         for (WebElement button : deleteButtons) {
             button.click();
+            // VERIFY NOTIFICATION IS DISPLAYED
+            assertTrue(dashboardPage.getNotification().contains("Task deleted"));
         }
 
         // SET TIME OUT TO 1 SECOND, SO WE DON'T HAVE TO WAIT ALL DAY
@@ -147,7 +157,7 @@ public class DashboardTest extends BaseTest {
     }
 
     @Test
-    public void errorWhenSubmittingEmptyTask(){
+    public void errorWhenSubmittingEmptyTask() {
         Dashboard dashboardPage = new Dashboard(driver);
         dashboardPage.clickOnNewTask();
 

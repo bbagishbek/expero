@@ -9,7 +9,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,8 +72,14 @@ public class Dashboard {
         taskInputField.sendKeys(task);
     }
 
-    public String getTaskInputValidationMsg(){
+    public String getTaskInputValidationMsg() {
         return taskInputField.getAttribute("validationMessage");
+    }
+
+    public String getNotification() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='root']/div/p")));
+        return element.getText();
     }
 
     public String getUserName() {
