@@ -54,9 +54,11 @@ public class DriverManager {
 
             case CHROME:
                 WebDriverManager.chromedriver().setup();
-                ChromeOptions options = new ChromeOptions();
-                options.addArguments("--headless");
-                return new ChromeDriver();
+                ChromeOptions chromeOptions = new ChromeOptions();
+                chromeOptions.addArguments("--no-sandbox");
+                chromeOptions.addArguments("--headless");
+                chromeOptions.addArguments("disable-gpu");
+                return new ChromeDriver(chromeOptions);
 
             default:
                 logger.fatal("Unsupported DriverType: " + driverType);

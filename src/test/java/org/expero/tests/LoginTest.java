@@ -40,7 +40,7 @@ public class LoginTest extends BaseTest {
     }
 
 
-    @DataProvider(name = "invalidCredentials", parallel=true)
+    @DataProvider(name = "invalidCredentials")
     public Object[][] provideInvalidCredentials() {
         return new Object[][]{
                 {"test@gmail.com", "invalidPassword1"},
