@@ -2,9 +2,11 @@ package org.expero.utilities;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.Logger;
+import org.checkerframework.checker.units.qual.C;
 import org.expero.enums.SeleniumEnvironment;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.expero.enums.DriverType;
@@ -52,6 +54,8 @@ public class DriverManager {
 
             case CHROME:
                 WebDriverManager.chromedriver().setup();
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--headless");
                 return new ChromeDriver();
 
             default:
